@@ -1,0 +1,53 @@
+    <button type="button" class="close" ng-click="cancel();">
+        <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
+    </button>
+    <div class="modal-header">
+        <h3 class="modal-title">Edit User [ID: {{user.user_id}}]</h3>
+    </div>
+    <div class="modal-body">
+        <form name="user_form" class="form-horizontal" role="form" novalidate>
+            <form-element label="NAME" mod="user">
+                <input type="text" class="form-control" name="name" placeholder="NAME" ng-model="user.name" ng-disabled="user.user_id" focus/>
+            </form-element>
+            <form-element label="PASSWORD" mod="user">
+             <input type="text" class="form-control" name="password" placeholder="PASSWORD" ng-model="strongSecret" strong-secret required />
+            </form-element>
+            <ul class="error-msgs" ng-messages="user_form.strongSecret.$error">
+                    <li ng-message="numberValidator">Strong secret has to contain at least 1 number</li>
+                    <li ng-message="uppercaseValidator">Strong secret has to contain at least 1 uppercase</li>
+                    <li ng-message="sixCharactersValidator">Strong secret has to be exactly 6 characters long</li>
+            </ul>
+            <form-element label="EMAIL" mod="user">
+                <input type="text" name="email" class="form-control" placeholder="EMAIL" ng-model="user.email" />
+                <small class="errorMessage" ng-show="user_form.email.$dirty && user_form.email.$invalid"> Enter the email.</small>
+            </form-element>
+
+           <form-element label="STATUS" mod="user">
+                <input type="text" name="status" class="form-control" placeholder="STATUS" ng-model="user.status" only-numbers/>
+                <small class="errorMessage" ng-show="user_form.stock.$dirty && user_form.stock.$invalid"> Enter the Status.</small>
+            </form-element>
+
+            <form-element label="CREATIONTIME" mod="user">
+                <datepicker>
+                <input type="text" name="creation_time" class="form-control" placeholder="DATEPICKER" ng-model="user.creation_time"/>
+                </datepicker>              
+            </form-element>
+
+            <div class="space"></div>
+            <div class="space-4"></div>
+            <div class="modal-footer">
+                <form-element label="">
+                    <div class="text-right">
+                        <a class="btn btn-sm" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancel</a>
+                        <button ng-click="saveUser(user);"
+                                ng-disabled="user_form.$invalid || enableUpdate"
+                                class="btn btn-sm btn-primary"
+                                type="submit">
+                            <i class="ace-icon fa fa-check"></i>{{buttonText}}
+                        </button>
+                    </div>
+                </form-element>
+            </div>
+        </form>
+    </div>
+
